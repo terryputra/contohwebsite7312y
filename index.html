@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penawaran Website Usaha Asuk - By Terry</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+        .font-bakery-display {
+            font-family: 'Playfair Display', serif;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        /* Subtle animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.35s ease-out forwards;
+        }
+        .cake-script {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 antialiased selection:bg-amber-200 selection:text-amber-900">
+
+    <!-- ===================================================================== -->
+    <!-- STICKY TOP CONTROL BAR (DEMO SWITCHER & LIVE STORE NAME EDITOR)       -->
+    <!-- ===================================================================== -->
+    <div id="demo-control-bar" class="sticky top-0 z-50 bg-slate-900/95 backdrop-blur-md text-white border-b border-slate-700/80 shadow-xl">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 py-2.5">
+            <!-- Top Row: Info & Live Store Name Editor -->
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2.5 pb-2.5 border-b border-slate-800">
+                <div class="flex flex-wrap items-center gap-2">
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> Mode Preview Website
+                    </span>
+                    <span class="text-xs sm:text-sm text-slate-300">
+                        Semua teks, foto, harga & warna <strong class="text-white underline decoration-amber-400">bisa diedit 100%</strong> sesuai toko Asuk.
+                    </span>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-2">
+                    <!-- Quick Jump to Proposal Letter -->
+                    <button onclick="openProposalModal()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 hover:bg-emerald-500 text-white transition shadow-sm cursor-pointer">
+                        <i class="fa-solid fa-file-signature"></i> Surat Penawaran & Manfaat (Dari Terry)
+                    </button>
+
+                    <!-- Live Store Name Customizer -->
+                    <div class="flex items-center bg-slate-800 border border-slate-600 rounded-lg px-2.5 py-1 focus-within:border-amber-400 transition">
+                        <i class="fa-solid fa-pen-to-square text-amber-400 text-xs mr-2"></i>
+                        <label for="store-name-input" class="text-[11px] text-slate-400 mr-1.5 whitespace-nowrap">Coba Edit Nama:</label>
+                        <input 
+                            id="store-name-input" 
+                            type="text" 
+                            value="Nama Toko" 
+                            placeholder="Ketik nama toko Asuk..."
+                            oninput="updateStoreName(this.value)"
+                            class="bg-transparent text-xs font-bold text-white focus:outline-none w-28 sm:w-36 placeholder:text-slate-500"
+                        >
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Row: 4 Website Mode Switcher Pills + Active Feature Badge -->
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 pt-2.5">
+                <div class="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-1.5 sm:gap-2" id="switcher-buttons">
+                    <button onclick="switchDemo('bakery', 'standard')" id="btn-bakery-standard" class="switcher-btn flex items-center justify-center sm:justify-start gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition cursor-pointer">
+                        <span>🥐</span>
+                        <span>Roti: Standard</span>
+                        <span class="hidden sm:inline opacity-80 font-normal">(300rb)</span>
+                    </button>
+                    <button onclick="switchDemo('bakery', 'premium')" id="btn-bakery-premium" class="switcher-btn flex items-center justify-center sm:justify-start gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition cursor-pointer">
+                        <span>🎂</span>
+                        <span>Roti: Premium</span>
+                        <span class="hidden sm:inline opacity-80 font-normal">(500rb)</span>
+                    </button>
+                    <button onclick="switchDemo('packaging', 'standard')" id="btn-packaging-standard" class="switcher-btn flex items-center justify-center sm:justify-start gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition cursor-pointer">
+                        <span>📦</span>
+                        <span>Kemasan: Standard</span>
+                        <span class="hidden sm:inline opacity-80 font-normal">(300rb)</span>
+                    </button>
+                    <button onclick="switchDemo('packaging', 'premium')" id="btn-packaging-premium" class="switcher-btn flex items-center justify-center sm:justify-start gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition cursor-pointer">
+                        <span>🏭</span>
+                        <span>Kemasan: Premium</span>
+                        <span class="hidden sm:inline opacity-80 font-normal">(500rb)</span>
+                    </button>
+                </div>
+
+                <!-- Feature Indicator Badge -->
+                <div id="active-tier-badge" class="flex items-center gap-2 text-[11px] sm:text-xs bg-slate-800/90 px-3 py-1.5 rounded-xl border border-slate-700">
+                    <!-- Populated dynamically by JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- COLLAPSIBLE PROPOSAL & BENEFITS BANNER FOR ASUK (BY TERRY)            -->
+    <!-- ===================================================================== -->
+    <div id="proposal-banner" class="bg-gradient-to-r from-amber-50 via-white to-emerald-50 border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div class="flex items-start gap-3.5">
+                    <div class="w-11 h-11 rounded-2xl bg-amber-600 text-white flex items-center justify-center shrink-0 shadow-md font-bold text-lg">
+                        T
+                    </div>
+                    <div>
+                        <div class="flex flex-wrap items-center gap-2">
+                            <h2 class="text-sm sm:text-base font-extrabold text-slate-900">Halo Asuk! Ini Contoh Website Usaha dari Terry 👋</h2>
+                            <span class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">Bisa Diedit Sesuai Keinginan</span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed">
+                            Silakan klik <strong>4 tombol di atas</strong> untuk membandingkan tampilan <strong>Standard (Rp 300.000)</strong> dan <strong>Premium (Rp 500.000)</strong> untuk <strong>Toko Roti</strong> dan <strong>Toko Grosir Kemasan</strong> Asuk. Asuk juga bisa langsung ketik nama toko asli di kotak <em>"Coba Edit Nama"</em> di kanan atas!
+                        </p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2 shrink-0">
+                    <button onclick="openProposalModal()" class="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition shadow-sm flex items-center justify-center gap-2 cursor-pointer">
+                        <i class="fa-solid fa-book-open text-amber-400"></i>
+                        <span>Baca Penawaran Lengkap & Manfaatnya</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- MAIN LIVE WEBSITE PREVIEW CANVAS CONTAINER                            -->
+    <!-- ===================================================================== -->
+    <main id="website-preview-container" class="transition-colors duration-300">
+        <!-- Rendered dynamically by JavaScript based on active Business & Tier -->
+    </main>
+
+    <!-- ===================================================================== -->
+    <!-- PROPOSAL LETTER & BENEFITS MODAL (SURAT PENAWARAN TERRY KE ASUK)      -->
+    <!-- ===================================================================== -->
+    <div id="proposal-modal" class="fixed inset-0 z-50 hidden bg-slate-950/75 backdrop-blur-sm overflow-y-auto p-3 sm:p-6">
+        <div class="max-w-4xl mx-auto bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden my-4 animate-fade-in">
+            <!-- Modal Header -->
+            <div class="bg-slate-900 text-white px-6 py-5 flex items-center justify-between">
+                <div>
+                    <span class="text-xs uppercase tracking-wider font-bold text-amber-400">Penawaran Khusus Keluarga • Dari Terry untuk Asuk</span>
+                    <h3 class="text-xl sm:text-2xl font-extrabold mt-0.5">Proposal Pembuatan Website Katalog & Pemesanan</h3>
+                </div>
+                <button onclick="closeProposalModal()" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition cursor-pointer">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-6 sm:p-8 space-y-6 text-slate-700 text-sm sm:text-base leading-relaxed">
+                <div class="bg-amber-50/80 border border-amber-200/80 rounded-2xl p-5">
+                    <p class="font-semibold text-slate-900 mb-2">Halo Asuk,</p>
+                    <p>
+                        Terry buatkan penawaran sekaligus contoh nyata website untuk dua usaha Asuk (<strong>Toko Roti & Kue</strong> serta <strong>Toko Grosir Kemasan & Kotak Kue</strong>). Tujuannya supaya pembeli yang tanya lewat WhatsApp tidak perlu menunggu lama untuk minta foto produk, daftar harga, ukuran kotak, atau cara pesan—cukup kirim <strong>1 link website</strong>, semuanya langsung jelas dan terlihat profesional!
+                    </p>
+                </div>
+
+                <!-- 4 Manfaat Utama -->
+                <div>
+                    <h4 class="text-lg font-extrabold text-slate-900 mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-star text-amber-500"></i> Manfaat Punya Website Sendiri untuk Usaha Asuk:
+                    </h4>
+                    <div class="grid sm:grid-cols-2 gap-3.5">
+                        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80">
+                            <div class="font-bold text-slate-900 mb-1 flex items-center gap-2">
+                                <span class="w-6 h-6 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs"><i class="fa-solid fa-clock"></i></span>
+                                1. Hemat Waktu Balas Chat WA
+                            </div>
+                            <p class="text-xs sm:text-sm text-slate-600">Tidak perlu kirim foto dan daftar harga berulang-ulang ke setiap pembeli. Cukup bagikan link website di bio WA / Instagram / Google Maps.</p>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80">
+                            <div class="font-bold text-slate-900 mb-1 flex items-center gap-2">
+                                <span class="w-6 h-6 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center text-xs"><i class="fa-solid fa-award"></i></span>
+                                2. Toko Terlihat Lebih Terpercaya & Besar
+                            </div>
+                            <p class="text-xs sm:text-sm text-slate-600">Pelanggan baru (terutama pembeli grosir kotak kue & pesanan ulang tahun) jauh lebih yakin transfer kalau toko punya katalog rapi dan info rekening resmi.</p>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80">
+                            <div class="font-bold text-slate-900 mb-1 flex items-center gap-2">
+                                <span class="w-6 h-6 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center text-xs"><i class="fa-solid fa-calculator"></i></span>
+                                3. Pesanan Masuk Sudah Rapi & Jelas
+                            </div>
+                            <p class="text-xs sm:text-sm text-slate-600">Di paket Premium, pembeli roti langsung isi <strong>tanggal ambil & tulisan kue</strong>, sementara pembeli kemasan langsung <strong>hitung harga grosir otomatis</strong> sebelum masuk ke WA Asuk.</p>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80">
+                            <div class="font-bold text-slate-900 mb-1 flex items-center gap-2">
+                                <span class="w-6 h-6 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center text-xs"><i class="fa-solid fa-pen-nib"></i></span>
+                                4. Fleksibel & Mudah Diedit Kapan Saja
+                            </div>
+                            <p class="text-xs sm:text-sm text-slate-600">Nama toko, foto produk asli Asuk, daftar harga terbaru, promo musiman (Lebaran/Natal/Imlek), dan nomor rekening bisa disesuaikan kapan saja.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Perbandingan Paket -->
+                <div>
+                    <h4 class="text-lg font-extrabold text-slate-900 mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-tags text-emerald-600"></i> Pilihan Paket & Spesifikasi (Per Website):
+                    </h4>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <!-- Paket Standard -->
+                        <div class="rounded-2xl border-2 border-slate-200 p-5 bg-white">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-700">PAKET STANDARD</span>
+                                <span class="text-xl font-extrabold text-slate-900">Rp 300.000</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mb-4">Cocok untuk katalog online rapi & info toko lengkap.</p>
+                            <ul class="space-y-2 text-xs sm:text-sm">
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-600 mt-1"></i> <span>Tampilan profesional sesuai identitas toko Asuk</span></li>
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-600 mt-1"></i> <span><strong>Daftar Produk Lengkap</strong> (Foto, harga, deskripsi & tombol tanya WA)</span></li>
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-600 mt-1"></i> <span><strong>FAQ (Tanya Jawab)</strong> agar pembeli tidak tanya hal berulang</span></li>
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-emerald-600 mt-1"></i> <span><strong>Info Pembayaran & Lokasi</strong> (Rekening Bank, QRIS, Jam Buka & Maps)</span></li>
+                            </ul>
+                        </div>
+
+                        <!-- Paket Premium -->
+                        <div class="rounded-2xl border-2 border-amber-500 p-5 bg-amber-50/30 relative">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-500 text-white">PAKET PREMIUM ⭐</span>
+                                <span class="text-xl font-extrabold text-amber-700">Rp 500.000</span>
+                            </div>
+                            <p class="text-xs text-slate-600 mb-4">Semua fitur Standard <strong>DITAMBAH</strong> fitur penjualan otomatis:</p>
+                            <ul class="space-y-2 text-xs sm:text-sm">
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-amber-600 mt-1"></i> <span><strong>Semua fitur Paket Standard</strong></span></li>
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-amber-600 mt-1"></i> <span><strong>Banner Promo Spesial</strong> (bisa diganti saat ada diskon/event)</span></li>
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-amber-600 mt-1"></i> <span><strong>Galeri Foto</strong> (hasil kue pelanggan / stok gudang kemasan)</span></li>
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-amber-600 mt-1"></i> <span><strong>Form Pemesanan Pintar ke WA:</strong><br>
+                                    • <em>Toko Roti:</em> Pilih tanggal & jam ambil + kolom <strong>tulisan di kue</strong>.<br>
+                                    • <em>Toko Kemasan:</em> Kalkulator <strong>hitung jumlah & diskon harga grosir</strong> otomatis.</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Copyable WA Proposal Text for Terry -->
+                <div class="bg-slate-100 rounded-2xl p-4 border border-slate-200">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-bold text-slate-700 uppercase tracking-wide"><i class="fa-brands fa-whatsapp text-emerald-600 mr-1"></i> Ringkasan Teks Penawaran (Siap Kirim ke WA Asuk)</span>
+                        <button onclick="copyProposalText()" id="copy-proposal-btn" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition cursor-pointer">
+                            <i class="fa-regular fa-copy mr-1"></i> Salin Teks
+                        </button>
+                    </div>
+                    <textarea id="proposal-copy-text" readonly rows="5" class="w-full text-xs bg-white border border-slate-300 rounded-xl p-3 text-slate-700 focus:outline-none">Halo Asuk, ini Terry! Terry buatkan contoh website untuk Toko Roti & Toko Grosir Kemasan Asuk supaya jualannya makin rapi, pembeli gampang lihat katalog/harga tanpa harus tanya-tanya berulang di WA, dan toko terlihat makin terpercaya.
+
+Semua nama toko, foto asli, harga, dan warna bisa diedit sesuai keinginan Asuk. Ada 2 pilihan paket:
+1. Paket Standard (Rp 300.000): Daftar produk, FAQ, info pembayaran & lokasi.
+2. Paket Premium (Rp 500.000): Semua fitur Standard + Banner Promo, Galeri Foto, dan Form Pemesanan Pintar ke WA (di Toko Roti ada pilih tanggal ambil & tulisan di kue; di Toko Kemasan ada kalkulator hitung jumlah & diskon harga grosir otomatis).
+
+Asuk bisa langsung coba klik-klik contoh websitenya di link ini ya!</textarea>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="px-6 py-4 bg-slate-50 border-t border-slate-200 flex flex-wrap items-center justify-between gap-3">
+                <span class="text-xs text-slate-500">Salam hangat, <strong>Terry</strong></span>
+                <button onclick="closeProposalModal()" class="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition cursor-pointer">
+                    Tutup & Lihat Preview Website
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- WHATSAPP ORDER PREVIEW MODAL (SIMULATES REAL WA CHECKOUT)             -->
+    <!-- ===================================================================== -->
+    <div id="wa-modal" class="fixed inset-0 z-50 hidden bg-slate-950/75 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="max-w-md w-full bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden animate-fade-in">
+            <div class="bg-[#075E54] text-white px-5 py-4 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-xl">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-sm">Preview Pesan WhatsApp Otomatis</h4>
+                        <p class="text-[11px] text-emerald-100">Format pesan yang diterima HP Asuk</p>
+                    </div>
+                </div>
+                <button onclick="closeWaModal()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white cursor-pointer">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="p-5 bg-[#ECE5DD]">
+                <div class="bg-[#DCF8C6] text-slate-800 p-4 rounded-2xl rounded-tr-none shadow-sm text-xs sm:text-sm whitespace-pre-line font-sans leading-relaxed border border-emerald-200" id="wa-preview-message">
+                    <!-- Dynamic WA message -->
+                </div>
+                <p class="text-[11px] text-slate-600 mt-3 text-center">
+                    *Saat website aktif, tombol di bawah langsung membuka aplikasi WhatsApp pembeli menuju nomor WA Asuk.
+                </p>
+            </div>
+            <div class="p-4 bg-white border-t border-slate-200 flex gap-2">
+                <button onclick="copyWaMessage()" id="copy-wa-btn" class="flex-1 py-2.5 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs transition cursor-pointer">
+                    <i class="fa-regular fa-copy mr-1"></i> Salin Pesan
+                </button>
+                <a id="wa-direct-link" href="#" target="_blank" rel="noopener noreferrer" class="flex-1 py-2.5 px-4 rounded-xl bg-[#25D366] hover:bg-[#1ebe5d] text-white font-bold text-xs text-center transition shadow-sm flex items-center justify-center gap-1.5">
+                    <i class="fa-brands fa-whatsapp text-base"></i> Buka WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- GALLERY LIGHTBOX MODAL                                                -->
+    <!-- ===================================================================== -->
+    <div id="lightbox-modal" class="fixed inset-0 z-50 hidden bg-slate-950/85 backdrop-blur-sm flex items-center justify-center p-4" onclick="closeLightbox()">
+        <div class="max-w-2xl w-full bg-white rounded-3xl overflow-hidden shadow-2xl animate-fade-in" onclick="event.stopPropagation()">
+            <div class="relative bg-slate-900">
+                <img id="lightbox-img" src="" alt="Preview Galeri" class="w-full max-h-[65vh] object-cover">
+                <button onclick="closeLightbox()" class="absolute top-3 right-3 w-9 h-9 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center cursor-pointer">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="p-4 sm:p-5 flex items-center justify-between">
+                <div>
+                    <h5 id="lightbox-title" class="font-bold text-slate-900 text-sm sm:text-base"></h5>
+                    <p id="lightbox-desc" class="text-xs text-slate-500 mt-0.5"></p>
+                </div>
+                <span class="text-[11px] px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 font-semibold">Galeri Foto Asli</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- JAVASCRIPT APPLICATION LOGIC & DATA                                   -->
+    <!-- ===================================================================== -->
+    <script>
+        // Application State
+        const state = {
+            business: 'bakery', // 'bakery' | 'packaging'
+            tier: 'premium',    // 'standard' | 'premium'
+            storeName: 'Nama Toko',
+            // Bakery Order Form State
+            bakeryOrder: {
+                productIndex: 0,
+                pickupDate: '',
+                pickupTime: '14:00',
+                cakeText: 'Selamat Ulang Tahun Mama ❤️',
+                deliveryMethod: 'Ambil Sendiri di Toko',
+                customerName: '',
+                notes: ''
+            },
+            // Packaging Wholesale Calculator State
+            packagingOrder: {
+                productIndex: 0,
+                quantity: 250,
+                customNotes: '',
+                customerName: ''
+            }
+        };
+
+        // Set default pickup date to tomorrow
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        state.bakeryOrder.pickupDate = tomorrow.toISOString().split('T')[0];
+
+        // Rich Product & Gallery Datasets with reliable Unsplash photography & gradient fallbacks
+        const bakeryData = {
+            heroImg: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1400&q=80',
+            products: [
+                {
+                    name: 'Custom Birthday Cake Tart',
+                    price: 220000,
+                    unit: 'Diameter 18 cm',
+                    badge: 'Best Seller',
+                    desc: 'Sponge cake lembut pilihan rasa cokelat/vanila dengan krim butter ringan & gratis tulisan di atas kue.',
+                    img: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=80'
+                },
+                {
+                    name: 'Artisan Butter Croissant',
+                    price: 22000,
+                    unit: 'Per Pcs',
+                    badge: 'Fresh Pagi',
+                    desc: 'Pastry renyah berlapis-lapis menggunakan mentega murni berkualitas, dipanggang setiap pagi.',
+                    img: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=800&q=80'
+                },
+                {
+                    name: 'Roti Sobek Cokelat Keju Lumer',
+                    price: 45000,
+                    unit: '1 Loyang (9 Potong)',
+                    badge: 'Favorit Keluarga',
+                    desc: 'Tekstur super empuk tanpa pengawet dengan isian cokelat lumer dan parutan keju melimpah.',
+                    img: 'https://images.unsplash.com/photo-1509365465985-25d11c17e812?auto=format&fit=crop&w=800&q=80'
+                },
+                {
+                    name: 'Bolu Gulung Premium Klasik',
+                    price: 65000,
+                    unit: 'Panjang 24 cm',
+                    badge: 'Cocok Oleh-Oleh',
+                    desc: 'Bolu gulung lembut dengan pilihan selai nanas homemade, krim moka, atau keju parut.',
+                    img: 'https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?auto=format&fit=crop&w=800&q=80'
+                },
+                {
+                    name: 'Nastar Wisman & Kue Kering',
+                    price: 85000,
+                    unit: 'Toples 500 gr',
+                    badge: 'Musiman / Harian',
+                    desc: 'Nastar lumer di mulut dengan selai nanas asli dan olesan kuning telur mengkilap.',
+                    img: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=800&q=80'
+                },
+                {
+                    name: 'Tiramisu Dessert Box',
+                    price: 38000,
+                    unit: 'Box 450 ml',
+                    badge: 'Dingin Lebih Nikmat',
+                    desc: 'Lapisan biskuit kopi espresso dengan krim mascarpone lembut dan taburan cokelat bubuk.',
+                    img: 'https://images.unsplash.com/photo-1571115177098-24ec42ed204d?auto=format&fit=crop&w=800&q=80'
+                }
+            ],
+            gallery: [
+                {
+                    title: 'Pesanan Kue Ulang Tahun Custom Anak & Keluarga',
+                    desc: 'Bisa request warna krim, tema hiasan, dan tulisan ucapan sesuai permintaan.',
+                    img: 'https://images.unsplash.com/photo-1535141192574-5d4897c12636?auto=format&fit=crop&w=800&q=80'
+                },
+                {
+                    title: 'Etalase Roti Fresh Panggang Setiap Pagi',
+                    desc: 'Selalu baru keluar dari oven setiap jam 07.00 pagi untuk menjaga kelembutan.',
+                    img: 'https://images.unsplash.com/photo-1517433670267-08bbd4be890f?auto=format&fit=crop&w=800&q=80'
+                },
+                {
+                    title: 'Paket Snack Box Acara Rapat & Pengajian',
+                    desc: 'Menerima pesanan partai untuk acara kantor, arisan, dan syukuran.',
+                    img: 'https://images.unsplash.com/photo-1483695028939-5bb13f8648b0?auto=format&fit=crop&w=800&q=80'
+                },
+                {
+                    title: 'Hampers Kue Kering & Bolu Spesial',
+                    desc: 'Dilengkapi pita cantik dan kartu ucapan untuk hadiah keluarga maupun rekan.',
+                    img: 'https://images.unsplash.com/photo-1607478900766-efe13248b125?auto=format&fit=crop&w=800&q=80'
+                }
+            ],
+            faqs: [
+                {
+                    q: 'Berapa hari sebelum acara saya harus memesan kue ulang tahun custom?',
+                    a: 'Untuk kue ulang tahun custom tulisan & desain, sebaiknya pesan minimal H-1 atau H-2 sebelum tanggal ambil agar hasil maksimal. Untuk roti harian ready stock setiap hari.'
+                },
+                {
+                    q: 'Apakah bisa request tulisan ucapan & lilin di atas kue?',
+                    a: 'Bisa sekali! Gratis tulisan ucapan di atas kue (contoh: "Happy Birthday", "Selamat Wisuda", dll) serta gratis lilin standar dan pisau kue.'
+                },
+                {
+                    q: 'Apakah melayani pengantaran ke alamat rumah?',
+                    a: 'Ya, pesanan bisa diambil langsung di toko sesuai jam yang dipilih, atau dikirim menggunakan kurir instan (GoSend/GrabExpress) area dalam kota.'
+                },
+                {
+                    q: 'Berapa lama ketahanan roti dan kue di suhu ruang?',
+                    a: 'Roti manis & bolu tahan 3–4 hari di suhu ruang tertutup karena tanpa bahan pengawet. Untuk kue tart krim sebaiknya disimpan di kulkas (tahan hingga 4 hari).'
+                }
+            ]
+        };
+
+        const packagingData = {
+            heroImg: 'https://images.unsplash.com/photo-1607166452427-7e4477079cb9?auto=format&fit=crop&w=1400&q=80',
+            products: [
+                {
+                    name: 'Kotak Kue Tart Mika Transparan + Alas',
+                    price: 12500,
+                    unit: 'Ukuran 22x22x15 cm (Per Pcs)',
+                    badge: 'Best Seller Bakery',
+                    desc: 'Mika bening tebal anti-embun lengkap dengan alas kokoh dan pita pengikat, bikin kue tart tampak mewah.',
+                    img: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=800&q=80'
+                },
+                {
+                    name: 'Dus Box Kraft Window (Jendela Mika)',
+                    price: 2200,
+                    unit: 'Ukuran 20x10x5 cm (Per Pcs)',
+                    badge: 'Stok Melimpah',
+                    desc: 'Bahan kertas kraft cokelat tebal 310 gsm food grade dengan jendela mika bening di bagian atas.',
+                    img: 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=800&q=80'
+                },
+                {
+                    name: 'Box Brownies Sekat Isi 10 / 20 Potong',
+                    price: 3400,
+                    unit: 'Ukuran 22x11x5 cm (Per Pcs)',
+                    badge: 'Favorit UMKM',
+                    desc: 'Sudah termasuk sekat dalam rapi dan laminasi dalam anti-minyak, praktis tanpa perlu alas tambahan.',
+                    img: 'https://images.unsplash.com/photo-1605000797499-95a51c5269ae?auto=format&fit=crop&w=800&q=80'
+                },
+                {
+                    name: 'Dus Nasi Kotak R10B Laminasi Dalam',
+                    price: 1850,
+                    unit: 'Ukuran 20x20x7.5 cm (Per Pcs)',
+                    badge: 'Harga Pabrik',
+                    desc: 'Karton duplex putih bersih dengan lapisan anti-rembes minyak dan kuah, sistem kancing praktis tanpa staples.',
+                    img: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80'
+                },
+                {
+                    name: 'Paper Bag & Kantong Kraft Tali Kertas',
+                    price: 1600,
+                    unit: 'Ukuran Medium 21x12x27 cm',
+                    badge: 'Ramah Lingkungan',
+                    desc: 'Kantong belanja kertas kraft tebal kuat menahan beban hingga 3 kg, cocok untuk dus kue & hampers.',
+                    img: 'https://images.unsplash.com/photo-1591085686350-798c0f9faa7f?auto=format&fit=crop&w=800&q=80'
+                },
+                {
+                    name: 'Cupcake Box Isi 6 + Lubang Penyangga',
+                    price: 4200,
+                    unit: 'Ukuran 24x16x7.5 cm (Per Pcs)',
+                    badge: 'Anti Tumpah',
+                    desc: 'Dilengkapi insert lubang penahan cup agar cupcake tidak bergeser saat dibawa motor maupun mobil.',
+                    img: 'https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=800&q=80'
+                }
+            ],
+            gallery: [
+                {
+                    title: 'Stok Gudang Kotak Kue & Dus Nasi Ready Ribuan Pcs',
+                    desc: 'Siap memenuhi kebutuhan mendadak toko kue, katering, maupun UMKM kuliner.',
+                    img: 'https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=800&q=80'
+                },
+                {
+                    title: 'Berbagai Ukuran Box Kraft & Window Transparan',
+                    desc: 'Tersedia ukuran lengkap mulai dari snack box hingga kotak hantaran besar.',
+                    img: 'https://images.unsplash.com/photo-1607166452427-7e4477079cb9?auto=format&fit=crop&w=800&q=80'
+                },
+                {
+                    title: 'Pengiriman Partai Besar via Mobil Box & Kargo',
+                    desc: 'Melayani pengiriman area dalam kota maupun ekspedisi kargo luar kota.',
+                    img: 'https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?auto=format&fit=crop&w=800&q=80'
+                },
+                {
+                    title: 'Kualitas Bahan Food Grade & Tebal',
+                    desc: 'Kertas kokoh, tidak mudah penyok saat ditumpuk, dan aman bersentuhan langsung dengan makanan.',
+                    img: 'https://images.unsplash.com/photo-1530124566582-a618bc2615dc?auto=format&fit=crop&w=800&q=80'
+                }
+            ],
+            faqs: [
+                {
+                    q: 'Berapa minimal pembelian untuk mendapatkan harga grosir?',
+                    a: 'Pembelian eceran mulai dari 10–50 pcs tetap dilayani. Harga diskon grosir otomatis berlaku mulai pembelian 100 pcs (diskon 10%), 300 pcs (diskon 18%), dan 500+ pcs (diskon partai besar 25%).'
+                },
+                {
+                    q: 'Apakah bisa kirim ke luar kota menggunakan ekspedisi kargo?',
+                    a: 'Bisa! Semua kotak dikirim dalam kondisi lembaran lipat (flat-pack) sehingga hemat ongkir dan aman tidak penyok saat dikirim via JNE Trucking, Indah Cargo, maupun ekspedisi langganan Anda.'
+                },
+                {
+                    q: 'Apakah menerima pesanan cetak logo / sablon merek sendiri?',
+                    a: 'Ya, kami melayani sablon 1–2 warna maupun cetak custom logo toko Anda dengan minimal order mulai dari 500 pcs. Hubungi admin via WA untuk konsultasi desain.'
+                },
+                {
+                    q: 'Apakah barang ready stock jika saya butuh mendadak hari ini?',
+                    a: 'Untuk ukuran-ukuran standar (dus nasi, box brownies, kraft window, mika tart) stok selalu ready di gudang dan bisa langsung diambil atau dikirim instan hari yang sama.'
+                }
+            ]
+        };
+
+        // Helper: Format Indonesian Rupiah
+        function formatRupiah(num) {
+            return 'Rp ' + Math.round(num).toLocaleString('id-ID');
+        }
+
+        // Helper: Wholesale Tier Calculation for Packaging Store
+        function calculateWholesale(unitPrice, qty) {
+            let discountRate = 0;
+            let tierName = 'Harga Normal (< 100 pcs)';
+            let badgeColor = 'bg-slate-100 text-slate-700';
+
+            if (qty >= 500) {
+                discountRate = 0.25;
+                tierName = 'Harga Partai Besar (Diskon 25%)';
+                badgeColor = 'bg-emerald-100 text-emerald-800 border border-emerald-300';
+            } else if (qty >= 300) {
+                discountRate = 0.18;
+                tierName = 'Grosir Tier 2 (Diskon 18%)';
+                badgeColor = 'bg-teal-100 text-teal-800 border border-teal-300';
+            } else if (qty >= 100) {
+                discountRate = 0.10;
+                tierName = 'Grosir Tier 1 (Diskon 10%)';
+                badgeColor = 'bg-amber-100 text-amber-800 border border-amber-300';
+            }
+
+            const finalUnitPrice = Math.round(unitPrice * (1 - discountRate));
+            const totalNormal = unitPrice * qty;
+            const totalFinal = finalUnitPrice * qty;
+            const totalSaved = totalNormal - totalFinal;
+
+            return {
+                discountRate,
+                tierName,
+                badgeColor,
+                finalUnitPrice,
+                totalNormal,
+                totalFinal,
+                totalSaved
+            };
+        }
+
+        // Update Top Control Bar UI
+        function updateControlBar() {
+            const buttons = {
+                'bakery-standard': document.getElementById('btn-bakery-standard'),
+                'bakery-premium': document.getElementById('btn-bakery-premium'),
+                'packaging-standard': document.getElementById('btn-packaging-standard'),
+                'packaging-premium': document.getElementById('btn-packaging-premium'),
+            };
+
+            Object.entries(buttons).forEach(([key, btn]) => {
+                const isActive = `${state.business}-${state.tier}` === key;
+                if (isActive) {
+                    if (key.startsWith('bakery')) {
+                        btn.className = 'switcher-btn flex items-center justify-center sm:justify-start gap-1.5 px-3 py-2 rounded-xl text-xs font-extrabold transition cursor-pointer bg-amber-500 text-slate-950 shadow-md ring-2 ring-amber-300';
+                    } else {
+                        btn.className = 'switcher-btn flex items-center justify-center sm:justify-start gap-1.5 px-3 py-2 rounded-xl text-xs font-extrabold transition cursor-pointer bg-emerald-500 text-slate-950 shadow-md ring-2 ring-emerald-300';
+                    }
+                } else {
+                    btn.className = 'switcher-btn flex items-center justify-center sm:justify-start gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold transition cursor-pointer bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700';
+                }
+            });
+
+            const badge = document.getElementById('active-tier-badge');
+            if (state.tier === 'standard') {
+                badge.innerHTML = `
+                    <span class="w-2 h-2 rounded-full bg-slate-400"></span>
+                    <span class="text-slate-300 font-semibold">Standard (Rp 300rb):</span>
+                    <span class="text-slate-400">Katalog Produk + FAQ + Info Bayar</span>
+                `;
+            } else {
+                const extraFeature = state.business === 'bakery'
+                    ? 'Promo + Galeri + Form Tanggal Ambil & Tulisan Kue'
+                    : 'Promo + Galeri + Kalkulator Harga Grosir Otomatis';
+                badge.innerHTML = `
+                    <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                    <span class="text-amber-300 font-bold">Premium (Rp 500rb):</span>
+                    <span class="text-slate-200">${extraFeature}</span>
+                `;
+            }
+        }
+
+        // Switch Business or Tier
+        function switchDemo(business, tier) {
+            state.business = business;
+            state.tier = tier;
+            updateControlBar();
+            renderWebsite();
+        }
+
+        // Live Edit Store Name Handler
+        function updateStoreName(val) {
+            const cleaned = val.trim() === '' ? 'Nama Toko' : val;
+            state.storeName = cleaned;
+            document.querySelectorAll('.live-store-name').forEach(el => {
+                el.textContent = cleaned;
+            });
+        }
+
+        // Render Entire Preview Website
+        function renderWebsite() {
+            const container = document.getElementById('website-preview-container');
+            if (state.business === 'bakery') {
+                container.innerHTML = renderBakerySite();
+            } else {
+                container.innerHTML = renderPackagingSite();
+            }
+            // Re-sync live store name
+            updateStoreName(state.storeName);
+        }
+
+        // =====================================================================
+        // TEMPLATE 1: TOKO ROTI & KUE (WARM ARTISAN BAKERY THEME)
+        // =====================================================================
+        function renderBakerySite() {
+            const isPremium = state.tier === 'premium';
+            const selectedProd = bakeryData.products[state.bakeryOrder.productIndex];
+
+            return `
+            <div class="bg-[#FFFDF9] text-[#3D2616] animate-fade-in">
+                <!-- Premium Top Promo Ticker -->
+                ${isPremium ? `
+                <div class="bg-gradient-to-r from-[#7C2D12] via-[#9A3412] to-[#B45309] text-amber-50 text-xs sm:text-sm py-2.5 px-4 text-center font-medium shadow-inner">
+                    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-2">
+                        <span class="px-2 py-0.5 rounded-full bg-amber-400 text-amber-950 font-extrabold text-[11px] uppercase">Promo Spesial</span>
+                        <span>Diskon <strong>15% Pre-Order Kue Ulang Tahun</strong> + <strong>GRATIS Lilin Angka & Tulisan Kue!</strong></span>
+                        <a href="#order-kue" class="underline font-bold text-amber-200 hover:text-white ml-1">Pesan Sekarang →</a>
+                    </div>
+                </div>
+                ` : ''}
+
+                <!-- Navbar -->
+                <header class="bg-[#FFFDF9]/95 backdrop-blur-md border-b border-amber-900/10 sticky top-[104px] sm:top-[92px] z-30">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
+                        <a href="#" class="flex items-center gap-3">
+                            <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-br from-amber-600 to-[#5C3A21] text-white flex items-center justify-center shadow-md">
+                                <i class="fa-solid fa-bread-slice text-lg"></i>
+                            </div>
+                            <div>
+                                <div class="font-bakery-display font-bold text-lg sm:text-xl text-[#5C3A21] leading-tight live-store-name">${state.storeName}</div>
+                                <div class="text-[11px] text-amber-700 font-medium tracking-wide">Artisan Bakery & Custom Cake</div>
+                            </div>
+                        </a>
+
+                        <nav class="hidden md:flex items-center gap-7 text-sm font-semibold text-[#5C3A21]/80">
+                            <a href="#katalog-roti" class="hover:text-amber-700 transition">Daftar Kue & Roti</a>
+                            ${isPremium ? `<a href="#galeri-roti" class="hover:text-amber-700 transition">Galeri Hasil Kue</a>` : ''}
+                            ${isPremium ? `<a href="#order-kue" class="hover:text-amber-700 transition text-amber-700 font-bold">Form Pemesanan</a>` : ''}
+                            <a href="#faq-roti" class="hover:text-amber-700 transition">FAQ</a>
+                            <a href="#pembayaran-roti" class="hover:text-amber-700 transition">Info Pembayaran</a>
+                        </nav>
+
+                        <button onclick="openSimpleWa('Halo ' + state.storeName + ', saya mau tanya menu roti dan kue yang ready hari ini.')" class="px-4 py-2.5 rounded-full bg-[#25D366] hover:bg-[#1ebe5d] text-white text-xs sm:text-sm font-bold shadow-md shadow-emerald-600/20 flex items-center gap-2 transition cursor-pointer">
+                            <i class="fa-brands fa-whatsapp text-base"></i>
+                            <span>Chat WhatsApp</span>
+                        </button>
+                    </div>
+                </header>
+
+                <!-- Hero Section -->
+                <section class="relative overflow-hidden py-12 sm:py-20 px-4 sm:px-6 bg-gradient-to-b from-[#FEF6E9] to-[#FFFDF9]">
+                    <div class="max-w-7xl mx-auto grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                        <div class="lg:col-span-6 space-y-5">
+                            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100 text-amber-900 text-xs font-bold border border-amber-200">
+                                <i class="fa-solid fa-fire-burner text-amber-600"></i>
+                                <span>Fresh Baked Every Day • Tanpa Pengawet</span>
+                            </div>
+                            <h1 class="font-bakery-display text-3xl sm:text-5xl font-bold text-[#4A2C18] leading-tight">
+                                Kehangatan Roti Segar & Kue Spesial dari <span class="text-amber-600 underline decoration-amber-300/80 live-store-name">${state.storeName}</span>
+                            </h1>
+                            <p class="text-sm sm:text-base text-[#6B4C35] leading-relaxed">
+                                Dibuat setiap pagi menggunakan bahan baku pilihan berkualitas tinggi. Melayani roti harian, bolu oleh-oleh, snack box acara, hingga kue ulang tahun custom tulisan sesuai keinginan Anda.
+                            </p>
+                            <div class="flex flex-wrap items-center gap-3 pt-2">
+                                <a href="${isPremium ? '#order-kue' : '#katalog-roti'}" class="px-6 py-3.5 rounded-2xl bg-[#5C3A21] hover:bg-[#462B18] text-white font-bold text-sm shadow-lg shadow-amber-950/15 transition flex items-center gap-2">
+                                    <i class="fa-solid ${isPremium ? 'fa-cake-candles' : 'fa-book-open'} text-amber-400"></i>
+                                    <span>${isPremium ? 'Pesan Kue & Tulis Ucapan' : 'Lihat Daftar Menu'}</span>
+                                </a>
+                                <a href="#katalog-roti" class="px-6 py-3.5 rounded-2xl bg-white hover:bg-amber-50 text-[#5C3A21] border border-amber-900/15 font-bold text-sm transition">
+                                    Cek Harga Menu
+                                </a>
+                            </div>
+                            <div class="grid grid-cols-3 gap-4 pt-4 border-t border-amber-900/10 text-center sm:text-left">
+                                <div>
+                                    <div class="font-extrabold text-lg sm:text-xl text-[#5C3A21]">100% Halal</div>
+                                    <div class="text-xs text-[#7D5E46]">Bahan terjamin higienis</div>
+                                </div>
+                                <div>
+                                    <div class="font-extrabold text-lg sm:text-xl text-[#5C3A21]">Fresh Oven</div>
+                                    <div class="text-xs text-[#7D5E46]">Dipanggang tiap pagi</div>
+                                </div>
+                                <div>
+                                    <div class="font-extrabold text-lg sm:text-xl text-[#5C3A21]">Custom Cake</div>
+                                    <div class="text-xs text-[#7D5E46]">Gratis tulisan & lilin</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="lg:col-span-6">
+                            <div class="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-amber-100 aspect-[4/3]">
+                                <img src="${bakeryData.heroImg}" alt="Aneka Roti dan Kue Segar" onerror="this.style.display='none'" class="w-full h-full object-cover">
+                                <div class="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md p-4 rounded-2xl shadow-lg border border-amber-100 flex items-center justify-between">
+                                    <div>
+                                        <div class="text-xs font-bold text-amber-700 uppercase">Buka Setiap Hari</div>
+                                        <div class="text-sm font-extrabold text-[#4A2C18]">07.00 – 21.00 WITA</div>
+                                    </div>
+                                    <span class="px-3 py-1.5 rounded-xl bg-emerald-100 text-emerald-800 text-xs font-bold">
+                                        <i class="fa-solid fa-circle text-[8px] mr-1 text-emerald-600"></i> Ready Stock
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Daftar Produk (Product Catalog) -->
+                <section id="katalog-roti" class="py-14 px-4 sm:px-6 max-w-7xl mx-auto">
+                    <div class="text-center max-w-2xl mx-auto mb-10">
+                        <span class="text-xs font-bold uppercase tracking-widest text-amber-600">Menu Pilihan</span>
+                        <h2 class="font-bakery-display text-2xl sm:text-4xl font-bold text-[#4A2C18] mt-1">Daftar Roti & Kue Favorit</h2>
+                        <p class="text-sm text-[#6B4C35] mt-2">Harga transparan dan selalu fresh. Klik tombol pesan atau tanya langsung via WhatsApp.</p>
+                    </div>
+
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        ${bakeryData.products.map((item, idx) => `
+                            <div class="group bg-white rounded-3xl border border-amber-900/10 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col">
+                                <div class="relative h-52 bg-gradient-to-br from-amber-100 to-orange-100 overflow-hidden">
+                                    <img src="${item.img}" alt="${item.name}" onerror="this.style.display='none'" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                    <span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-white/95 backdrop-blur-sm text-[#5C3A21] text-xs font-bold shadow-sm">
+                                        ${item.badge}
+                                    </span>
+                                </div>
+                                <div class="p-5 flex-1 flex flex-col justify-between">
+                                    <div>
+                                        <div class="text-xs font-semibold text-amber-700 mb-1">${item.unit}</div>
+                                        <h3 class="font-bold text-lg text-[#4A2C18]">${item.name}</h3>
+                                        <p class="text-xs sm:text-sm text-[#6B4C35] mt-1.5 leading-relaxed">${item.desc}</p>
+                                    </div>
+                                    <div class="pt-4 mt-4 border-t border-amber-900/10 flex items-center justify-between gap-2">
+                                        <div>
+                                            <span class="text-[11px] text-slate-400 block">Harga</span>
+                                            <span class="text-lg font-extrabold text-[#5C3A21]">${formatRupiah(item.price)}</span>
+                                        </div>
+                                        ${isPremium ? `
+                                            <button onclick="selectBakeryProduct(${idx})" class="px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold transition shadow-sm cursor-pointer">
+                                                Pilih & Pesan
+                                            </button>
+                                        ` : `
+                                            <button onclick="openSimpleWa('Halo ' + state.storeName + ', saya mau pesan *${item.name}* (${formatRupiah(item.price)}). Apakah stok tersedia?')" class="px-4 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#1ebe5d] text-white text-xs font-bold transition shadow-sm flex items-center gap-1.5 cursor-pointer">
+                                                <i class="fa-brands fa-whatsapp"></i> Tanya via WA
+                                            </button>
+                                        `}
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </section>
+
+                <!-- PREMIUM EXCLUSIVE SECTION 1: GALERI FOTO -->
+                ${isPremium ? `
+                <section id="galeri-roti" class="py-14 px-4 sm:px-6 bg-[#FEF6E9]/70 border-y border-amber-900/10">
+                    <div class="max-w-7xl mx-auto">
+                        <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-3">
+                            <div>
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-800 text-xs font-bold mb-1">
+                                    ⭐ Fitur Paket Premium
+                                </span>
+                                <h2 class="font-bakery-display text-2xl sm:text-3xl font-bold text-[#4A2C18]">Galeri Hasil Kue & Momen Pelanggan</h2>
+                            </div>
+                            <p class="text-xs sm:text-sm text-[#6B4C35]">Klik foto untuk memperbesar tampilan</p>
+                        </div>
+
+                        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                            ${bakeryData.gallery.map((g, i) => `
+                                <div onclick="openLightbox('${g.img}', '${g.title}', '${g.desc}')" class="group relative rounded-2xl overflow-hidden bg-amber-100 aspect-square cursor-pointer shadow-sm hover:shadow-lg transition">
+                                    <img src="${g.img}" alt="${g.title}" onerror="this.style.display='none'" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent flex flex-col justify-end p-3.5 text-white">
+                                        <div class="text-xs sm:text-sm font-bold leading-snug">${g.title}</div>
+                                        <div class="text-[11px] text-amber-200 mt-0.5 line-clamp-1">${g.desc}</div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </section>
+                ` : ''}
+
+                <!-- PREMIUM EXCLUSIVE SECTION 2: FORM PEMESANAN KUE (TANGGAL AMBIL + TULISAN DI KUE) -->
+                ${isPremium ? `
+                <section id="order-kue" class="py-14 px-4 sm:px-6 max-w-5xl mx-auto">
+                    <div class="bg-white rounded-3xl shadow-xl border-2 border-amber-500/40 overflow-hidden">
+                        <div class="bg-gradient-to-r from-[#5C3A21] to-[#7C4D2B] text-white p-6 sm:p-8">
+                            <span class="inline-block px-3 py-1 rounded-full bg-amber-400 text-amber-950 text-xs font-extrabold uppercase mb-2">
+                                ⭐ Fitur Paket Premium • Form Order Otomatis
+                            </span>
+                            <h2 class="font-bakery-display text-2xl sm:text-3xl font-bold">Form Pemesanan Kue & Request Tulisan</h2>
+                            <p class="text-xs sm:text-sm text-amber-100/90 mt-1">Isi detail pesanan di bawah ini, pilih tanggal ambil, dan tulis ucapan di atas kue—langsung terkirim rapi ke WhatsApp toko.</p>
+                        </div>
+
+                        <div class="p-6 sm:p-8 grid lg:grid-cols-12 gap-8">
+                            <!-- Left Form Inputs -->
+                            <div class="lg:col-span-7 space-y-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-[#4A2C18] uppercase mb-1.5">1. Pilih Produk Kue / Roti</label>
+                                    <select onchange="updateBakeryField('productIndex', parseInt(this.value))" class="w-full px-4 py-3 rounded-xl border border-amber-900/20 bg-[#FFFDF9] text-sm font-semibold text-[#4A2C18] focus:outline-none focus:border-amber-600">
+                                        ${bakeryData.products.map((p, idx) => `
+                                            <option value="${idx}" ${state.bakeryOrder.productIndex === idx ? 'selected' : ''}>
+                                                ${p.name} — ${formatRupiah(p.price)} (${p.unit})
+                                            </option>
+                                        `).join('')}
+                                    </select>
+                                </div>
+
+                                <div class="grid sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-bold text-[#4A2C18] uppercase mb-1.5">
+                                            <i class="fa-regular fa-calendar text-amber-600 mr-1"></i> 2. Tanggal Ambil / Kirim
+                                        </label>
+                                        <input type="date" value="${state.bakeryOrder.pickupDate}" onchange="updateBakeryField('pickupDate', this.value)" class="w-full px-4 py-3 rounded-xl border border-amber-900/20 bg-[#FFFDF9] text-sm font-semibold text-[#4A2C18] focus:outline-none focus:border-amber-600">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-[#4A2C18] uppercase mb-1.5">
+                                            <i class="fa-regular fa-clock text-amber-600 mr-1"></i> Jam Pengambilan
+                                        </label>
+                                        <input type="time" value="${state.bakeryOrder.pickupTime}" onchange="updateBakeryField('pickupTime', this.value)" class="w-full px-4 py-3 rounded-xl border border-amber-900/20 bg-[#FFFDF9] text-sm font-semibold text-[#4A2C18] focus:outline-none focus:border-amber-600">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-bold text-[#4A2C18] uppercase mb-1.5">
+                                        <i class="fa-solid fa-pen-fancy text-amber-600 mr-1"></i> 3. Tulisan Ucapan di Atas Kue (Gratis)
+                                    </label>
+                                    <input type="text" value="${state.bakeryOrder.cakeText}" oninput="updateBakeryCakeText(this.value)" placeholder="Contoh: Happy Birthday Papa ke-50!" class="w-full px-4 py-3 rounded-xl border-2 border-amber-400/70 bg-amber-50/40 text-sm font-semibold text-[#4A2C18] focus:outline-none focus:border-amber-600">
+                                    <p class="text-[11px] text-slate-500 mt-1">*Kosongkan jika memesan roti tanpa tulisan.</p>
+                                </div>
+
+                                <div class="grid sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-bold text-[#4A2C18] uppercase mb-1.5">4. Nama Pemesan</label>
+                                        <input type="text" value="${state.bakeryOrder.customerName}" oninput="updateBakeryField('customerName', this.value)" placeholder="Nama lengkap Anda..." class="w-full px-4 py-3 rounded-xl border border-amber-900/20 bg-[#FFFDF9] text-sm text-[#4A2C18] focus:outline-none focus:border-amber-600">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-[#4A2C18] uppercase mb-1.5">5. Metode Ambil</label>
+                                        <select onchange="updateBakeryField('deliveryMethod', this.value)" class="w-full px-4 py-3 rounded-xl border border-amber-900/20 bg-[#FFFDF9] text-sm font-semibold text-[#4A2C18] focus:outline-none focus:border-amber-600">
+                                            <option value="Ambil Sendiri di Toko" ${state.bakeryOrder.deliveryMethod === 'Ambil Sendiri di Toko' ? 'selected' : ''}>Ambil Sendiri di Toko</option>
+                                            <option value="Kirim Kurir Instan (GoSend/Grab)" ${state.bakeryOrder.deliveryMethod === 'Kirim Kurir Instan (GoSend/Grab)' ? 'selected' : ''}>Kirim Kurir Instan</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-bold text-[#4A2C18] uppercase mb-1.5">Catatan Tambahan (Opsional)</label>
+                                    <input type="text" value="${state.bakeryOrder.notes}" oninput="updateBakeryField('notes', this.value)" placeholder="Contoh: Minta lilin angka 5 & 0, krim warna biru muda..." class="w-full px-4 py-2.5 rounded-xl border border-amber-900/20 bg-[#FFFDF9] text-sm text-[#4A2C18] focus:outline-none focus:border-amber-600">
+                                </div>
+                            </div>
+
+                            <!-- Right Live Cake Preview & Summary -->
+                            <div class="lg:col-span-5 flex flex-col justify-between bg-[#FEF6E9] rounded-2xl p-5 border border-amber-200">
+                                <div>
+                                    <span class="text-[11px] font-bold uppercase tracking-wider text-amber-800 block mb-2">Preview Tulisan di Atas Kue</span>
+                                    <!-- Visual Cake Topper Preview -->
+                                    <div class="relative rounded-2xl bg-gradient-to-b from-[#6F3E22] to-[#4B2814] p-5 text-center shadow-inner border-4 border-amber-200/80 mb-4">
+                                        <div class="text-amber-300 text-xs mb-1">🕯️ ✨ 🕯️</div>
+                                        <div id="live-cake-preview-text" class="cake-script text-lg sm:text-xl font-bold text-amber-100 drop-shadow min-h-[28px] break-words">
+                                            "${state.bakeryOrder.cakeText || '(Tanpa tulisan)'}"
+                                        </div>
+                                        <div class="text-[10px] text-amber-300/80 mt-2">Cokelat Krim / Fondant Piping</div>
+                                    </div>
+
+                                    <div class="space-y-2 text-xs sm:text-sm border-t border-amber-900/10 pt-3">
+                                        <div class="flex justify-between">
+                                            <span class="text-[#6B4C35]">Menu Pilihan:</span>
+                                            <span class="font-bold text-[#4A2C18] text-right">${selectedProd.name}</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span class="text-[#6B4C35]">Tanggal & Jam:</span>
+                                            <span class="font-bold text-[#4A2C18]">${state.bakeryOrder.pickupDate} • ${state.bakeryOrder.pickupTime}</span>
+                                        </div>
+                                        <div class="flex justify-between text-base pt-2 border-t border-amber-900/10">
+                                            <span class="font-bold text-[#4A2C18]">Estimasi Harga:</span>
+                                            <span class="font-extrabold text-amber-700">${formatRupiah(selectedProd.price)}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button onclick="submitBakeryWaOrder()" class="mt-5 w-full py-3.5 px-4 rounded-xl bg-[#25D366] hover:bg-[#1ebe5d] text-white font-extrabold text-sm shadow-lg shadow-emerald-600/20 flex items-center justify-center gap-2 transition cursor-pointer">
+                                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                                    <span>Kirim Pesanan ke WhatsApp</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                ` : ''}
+
+                <!-- FAQ Section -->
+                <section id="faq-roti" class="py-14 px-4 sm:px-6 max-w-4xl mx-auto">
+                    <div class="text-center mb-8">
+                        <span class="text-xs font-bold uppercase tracking-widest text-amber-600">Tanya Jawab</span>
+                        <h2 class="font-bakery-display text-2xl sm:text-3xl font-bold text-[#4A2C18] mt-1">Pertanyaan yang Sering Diajukan (FAQ)</h2>
+                    </div>
+                    <div class="space-y-3">
+                        ${bakeryData.faqs.map((faq, idx) => `
+                            <details class="group bg-white rounded-2xl border border-amber-900/10 p-5 shadow-sm" ${idx === 0 ? 'open' : ''}>
+                                <summary class="flex items-center justify-between font-bold text-sm sm:text-base text-[#4A2C18] cursor-pointer list-none">
+                                    <span>${faq.q}</span>
+                                    <span class="w-7 h-7 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center text-xs group-open:rotate-180 transition">
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                    </span>
+                                </summary>
+                                <p class="text-xs sm:text-sm text-[#6B4C35] mt-3 pt-3 border-t border-amber-900/10 leading-relaxed">
+                                    ${faq.a}
+                                </p>
+                            </details>
+                        `).join('')}
+                    </div>
+                </section>
+
+                <!-- Info Pembayaran & Lokasi -->
+                <section id="pembayaran-roti" class="py-14 px-4 sm:px-6 bg-[#4A2C18] text-amber-50">
+                    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-8">
+                        <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-6 sm:p-8 border border-white/10">
+                            <h3 class="font-bakery-display text-xl sm:text-2xl font-bold text-amber-300 mb-4 flex items-center gap-2">
+                                <i class="fa-solid fa-credit-card"></i> Info Pembayaran Resmi
+                            </h3>
+                            <p class="text-xs sm:text-sm text-amber-100/80 mb-4">Untuk pemesanan kue ulang tahun & partai besar, DP minimal 50% melalui rekening resmi di bawah ini:</p>
+                            <div class="space-y-3 text-sm">
+                                <div class="p-3.5 rounded-2xl bg-black/25 flex items-center justify-between">
+                                    <div>
+                                        <span class="text-xs text-amber-300 font-bold block">BANK BCA</span>
+                                        <span class="font-mono font-bold text-base">123-456-7890</span>
+                                        <span class="text-xs text-amber-100/80 block">a.n. Pemilik <span class="live-store-name">${state.storeName}</span></span>
+                                    </div>
+                                    <span class="px-2.5 py-1 rounded-lg bg-white/10 text-xs">Transfer</span>
+                                </div>
+                                <div class="p-3.5 rounded-2xl bg-black/25 flex items-center justify-between">
+                                    <div>
+                                        <span class="text-xs text-amber-300 font-bold block">BANK MANDIRI</span>
+                                        <span class="font-mono font-bold text-base">145-00-9876543-2</span>
+                                        <span class="text-xs text-amber-100/80 block">a.n. Pemilik <span class="live-store-name">${state.storeName}</span></span>
+                                    </div>
+                                    <span class="px-2.5 py-1 rounded-lg bg-white/10 text-xs">Transfer</span>
+                                </div>
+                                <div class="p-3.5 rounded-2xl bg-emerald-500/20 border border-emerald-400/30 flex items-center justify-between">
+                                    <div>
+                                        <span class="text-xs text-emerald-300 font-bold block">QRIS & TUNAI DI TOKO</span>
+                                        <span class="text-xs text-amber-50">Menerima GoPay, OVO, Dana, ShopeePay & Mobile Banking</span>
+                                    </div>
+                                    <i class="fa-solid fa-qrcode text-2xl text-emerald-300"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-6 sm:p-8 border border-white/10 flex flex-col justify-between">
+                            <div>
+                                <h3 class="font-bakery-display text-xl sm:text-2xl font-bold text-amber-300 mb-4 flex items-center gap-2">
+                                    <i class="fa-solid fa-location-dot"></i> Alamat Toko & Jam Operasional
+                                </h3>
+                                <div class="space-y-4 text-sm text-amber-100/90">
+                                    <div>
+                                        <div class="font-bold text-white">Alamat Outlet Utama:</div>
+                                        <p class="text-xs sm:text-sm mt-0.5">Jl. Raya Utama No. 88 (Bisa diisi alamat lengkap toko Asuk beserta patokan lokasi)</p>
+                                    </div>
+                                    <div>
+                                        <div class="font-bold text-white">Jam Buka:</div>
+                                        <p class="text-xs sm:text-sm mt-0.5">Senin – Minggu: 07.00 – 21.00 WITA</p>
+                                    </div>
+                                    <div>
+                                        <div class="font-bold text-white">WhatsApp Pemesanan:</div>
+                                        <p class="text-xs sm:text-sm mt-0.5">0812-3456-7890 (Fast Response)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <button onclick="openSimpleWa('Halo ' + state.storeName + ', boleh minta share location (Google Maps) tokonya?')" class="mt-6 w-full py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-amber-950 font-extrabold text-xs sm:text-sm transition cursor-pointer">
+                                <i class="fa-solid fa-map-location-dot mr-1.5"></i> Minta Lokasi Google Maps via WA
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <footer class="bg-[#361F10] text-amber-200/70 py-6 px-4 text-center text-xs">
+                    © 2026 <span class="font-bold text-white live-store-name">${state.storeName}</span> — Roti & Kue Segar Setiap Hari.
+                </footer>
+            </div>
+            `;
+        }
+
+        // =====================================================================
+        // TEMPLATE 2: TOKO GROSIR KEMASAN & KOTAK KUE (B2B WHOLESALE THEME)
+        // =====================================================================
+        function renderPackagingSite() {
+            const isPremium = state.tier === 'premium';
+            const selectedPkg = packagingData.products[state.packagingOrder.productIndex];
+            const calc = calculateWholesale(selectedPkg.price, state.packagingOrder.quantity);
+
+            return `
+            <div class="bg-[#F8FAFC] text-[#0F172A] animate-fade-in">
+                <!-- Premium Top Promo Banner -->
+                ${isPremium ? `
+                <div class="bg-gradient-to-r from-[#064E3B] via-[#047857] to-[#B45309] text-white text-xs sm:text-sm py-2.5 px-4 text-center font-medium shadow-inner">
+                    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-2">
+                        <span class="px-2 py-0.5 rounded-full bg-amber-400 text-slate-950 font-extrabold text-[11px] uppercase">Promo Grosir</span>
+                        <span>Order mulai <strong>500 Pcs Diskon Partai Besar 25%</strong> + <strong>GRATIS Ongkir Area Kota!</strong></span>
+                        <a href="#kalkulator-grosir" class="underline font-bold text-amber-200 hover:text-white ml-1">Hitung Harga →</a>
+                    </div>
+                </div>
+                ` : ''}
+
+                <!-- Navbar -->
+                <header class="bg-white/95 backdrop-blur-md border-b border-slate-200 sticky top-[104px] sm:top-[92px] z-30">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
+                        <a href="#" class="flex items-center gap-3">
+                            <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-br from-[#0F172A] to-[#059669] text-white flex items-center justify-center shadow-md">
+                                <i class="fa-solid fa-box-open text-lg"></i>
+                            </div>
+                            <div>
+                                <div class="font-extrabold text-lg sm:text-xl text-[#0F172A] leading-tight live-store-name">${state.storeName}</div>
+                                <div class="text-[11px] text-[#B45309] font-bold tracking-wide uppercase">Grosir Kotak Kue & Kemasan UMKM</div>
+                            </div>
+                        </a>
+
+                        <nav class="hidden md:flex items-center gap-7 text-sm font-semibold text-slate-600">
+                            <a href="#katalog-kemasan" class="hover:text-emerald-700 transition">Katalog Kemasan</a>
+                            ${isPremium ? `<a href="#galeri-kemasan" class="hover:text-emerald-700 transition">Galeri Gudang</a>` : ''}
+                            ${isPremium ? `<a href="#kalkulator-grosir" class="hover:text-emerald-700 transition text-emerald-700 font-bold">Kalkulator Grosir</a>` : ''}
+                            <a href="#faq-kemasan" class="hover:text-emerald-700 transition">FAQ</a>
+                            <a href="#pembayaran-kemasan" class="hover:text-emerald-700 transition">Info Pembayaran</a>
+                        </nav>
+
+                        <button onclick="openSimpleWa('Halo ' + state.storeName + ', saya mau tanya daftar harga grosir kotak kue & kemasan.')" class="px-4 py-2.5 rounded-xl bg-[#059669] hover:bg-[#047857] text-white text-xs sm:text-sm font-bold shadow-md shadow-emerald-600/20 flex items-center gap-2 transition cursor-pointer">
+                            <i class="fa-brands fa-whatsapp text-base"></i>
+                            <span>Tanya Stok WA</span>
+                        </button>
+                    </div>
+                </header>
+
+                <!-- Hero Section -->
+                <section class="py-12 sm:py-20 px-4 sm:px-6 bg-gradient-to-br from-slate-900 via-[#0F172A] to-[#1E293B] text-white">
+                    <div class="max-w-7xl mx-auto grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                        <div class="lg:col-span-6 space-y-5">
+                            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold border border-emerald-500/30">
+                                <i class="fa-solid fa-warehouse"></i>
+                                <span>Supplier Tangan Pertama • Harga Grosir & Eceran</span>
+                            </div>
+                            <h1 class="text-3xl sm:text-5xl font-extrabold leading-tight">
+                                Pusat Grosir Kotak Kue, Dus Nasi & Kemasan <span class="text-amber-400 live-store-name">${state.storeName}</span>
+                            </h1>
+                            <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+                                Solusi kemasan lengkap untuk toko kue, katering, restoran, dan pelaku UMKM kuliner. Bahan tebal food-grade, stok ribuan pcs selalu ready, harga semakin murah untuk pembelian grosir.
+                            </p>
+                            <div class="flex flex-wrap items-center gap-3 pt-2">
+                                <a href="${isPremium ? '#kalkulator-grosir' : '#katalog-kemasan'}" class="px-6 py-3.5 rounded-2xl bg-[#059669] hover:bg-[#047857] text-white font-bold text-sm shadow-lg shadow-emerald-950/40 transition flex items-center gap-2">
+                                    <i class="fa-solid ${isPremium ? 'fa-calculator' : 'fa-boxes-stacked'}"></i>
+                                    <span>${isPremium ? 'Hitung Harga Grosir Otomatis' : 'Lihat Katalog Kemasan'}</span>
+                                </a>
+                                <a href="#katalog-kemasan" class="px-6 py-3.5 rounded-2xl bg-white/10 hover:bg-white/15 text-white border border-white/15 font-bold text-sm transition">
+                                    Cek Ukuran & Harga
+                                </a>
+                            </div>
+                            <div class="grid grid-cols-3 gap-4 pt-4 border-t border-slate-700/80 text-center sm:text-left">
+                                <div>
+                                    <div class="font-extrabold text-lg sm:text-xl text-amber-400">Food Grade</div>
+                                    <div class="text-xs text-slate-400">Aman untuk makanan</div>
+                                </div>
+                                <div>
+                                    <div class="font-extrabold text-lg sm:text-xl text-emerald-400">Diskon s/d 25%</div>
+                                    <div class="text-xs text-slate-400">Pembelian partai besar</div>
+                                </div>
+                                <div>
+                                    <div class="font-extrabold text-lg sm:text-xl text-white">Kirim Kargo</div>
+                                    <div class="text-xs text-slate-400">Dalam & luar kota</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="lg:col-span-6">
+                            <div class="relative rounded-3xl overflow-hidden shadow-2xl border-2 border-slate-700 bg-slate-800 aspect-[4/3]">
+                                <img src="${packagingData.heroImg}" alt="Grosir Kotak Kue dan Kemasan" onerror="this.style.display='none'" class="w-full h-full object-cover">
+                                <div class="absolute bottom-4 left-4 right-4 bg-slate-900/90 backdrop-blur-md p-4 rounded-2xl border border-slate-700 flex items-center justify-between">
+                                    <div>
+                                        <div class="text-xs font-bold text-amber-400 uppercase">Melayani Ecer & Partai Besar</div>
+                                        <div class="text-sm font-extrabold text-white">Bisa Ambil di Gudang / Kirim Ekspedisi</div>
+                                    </div>
+                                    <span class="px-3 py-1.5 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold">
+                                        Stok Ready
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Daftar Produk Kemasan -->
+                <section id="katalog-kemasan" class="py-14 px-4 sm:px-6 max-w-7xl mx-auto">
+                    <div class="text-center max-w-2xl mx-auto mb-10">
+                        <span class="text-xs font-bold uppercase tracking-widest text-[#B45309]">Katalog Lengkap</span>
+                        <h2 class="text-2xl sm:text-4xl font-extrabold text-[#0F172A] mt-1">Daftar Kotak Kue & Kemasan</h2>
+                        <p class="text-sm text-slate-600 mt-2">Harga satuan tertera di bawah. Pembelian mulai 100 pcs otomatis mendapatkan potongan harga grosir.</p>
+                    </div>
+
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        ${packagingData.products.map((item, idx) => `
+                            <div class="group bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col">
+                                <div class="relative h-52 bg-slate-100 overflow-hidden">
+                                    <img src="${item.img}" alt="${item.name}" onerror="this.style.display='none'" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                    <span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-slate-900/90 text-white text-xs font-bold shadow-sm">
+                                        ${item.badge}
+                                    </span>
+                                </div>
+                                <div class="p-5 flex-1 flex flex-col justify-between">
+                                    <div>
+                                        <div class="text-xs font-bold text-[#B45309] mb-1">${item.unit}</div>
+                                        <h3 class="font-extrabold text-lg text-[#0F172A]">${item.name}</h3>
+                                        <p class="text-xs sm:text-sm text-slate-600 mt-1.5 leading-relaxed">${item.desc}</p>
+                                    </div>
+                                    <div class="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between gap-2">
+                                        <div>
+                                            <span class="text-[11px] text-slate-400 block">Harga Satuan</span>
+                                            <span class="text-lg font-extrabold text-[#0F172A]">${formatRupiah(item.price)}</span>
+                                        </div>
+                                        ${isPremium ? `
+                                            <button onclick="selectPackagingProduct(${idx})" class="px-4 py-2.5 rounded-xl bg-[#059669] hover:bg-[#047857] text-white text-xs font-bold transition shadow-sm cursor-pointer">
+                                                Hitung Grosir
+                                            </button>
+                                        ` : `
+                                            <button onclick="openSimpleWa('Halo ' + state.storeName + ', saya mau tanya stok & harga grosir untuk *${item.name}* (${item.unit}).')" class="px-4 py-2.5 rounded-xl bg-[#0F172A] hover:bg-slate-800 text-white text-xs font-bold transition shadow-sm flex items-center gap-1.5 cursor-pointer">
+                                                <i class="fa-brands fa-whatsapp text-emerald-400"></i> Tanya via WA
+                                            </button>
+                                        `}
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </section>
+
+                <!-- PREMIUM EXCLUSIVE SECTION 1: GALERI PRODUK & GUDANG -->
+                ${isPremium ? `
+                <section id="galeri-kemasan" class="py-14 px-4 sm:px-6 bg-slate-100 border-y border-slate-200">
+                    <div class="max-w-7xl mx-auto">
+                        <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-3">
+                            <div>
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-600/15 text-emerald-800 text-xs font-bold mb-1">
+                                    ⭐ Fitur Paket Premium
+                                </span>
+                                <h2 class="text-2xl sm:text-3xl font-extrabold text-[#0F172A]">Galeri Stok Gudang & Kualitas Bahan</h2>
+                            </div>
+                            <p class="text-xs sm:text-sm text-slate-600">Klik foto untuk melihat detail kemasan</p>
+                        </div>
+
+                        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                            ${packagingData.gallery.map(g => `
+                                <div onclick="openLightbox('${g.img}', '${g.title}', '${g.desc}')" class="group relative rounded-2xl overflow-hidden bg-slate-200 aspect-square cursor-pointer shadow-sm hover:shadow-lg transition">
+                                    <img src="${g.img}" alt="${g.title}" onerror="this.style.display='none'" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent flex flex-col justify-end p-3.5 text-white">
+                                        <div class="text-xs sm:text-sm font-bold leading-snug">${g.title}</div>
+                                        <div class="text-[11px] text-emerald-300 mt-0.5 line-clamp-1">${g.desc}</div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </section>
+                ` : ''}
+
+                <!-- PREMIUM EXCLUSIVE SECTION 2: KALKULATOR HITUNG JUMLAH & HARGA GROSIR OTOMATIS -->
+                ${isPremium ? `
+                <section id="kalkulator-grosir" class="py-14 px-4 sm:px-6 max-w-5xl mx-auto">
+                    <div class="bg-white rounded-3xl shadow-xl border-2 border-emerald-500/40 overflow-hidden">
+                        <div class="bg-gradient-to-r from-[#0F172A] to-[#064E3B] text-white p-6 sm:p-8">
+                            <span class="inline-block px-3 py-1 rounded-full bg-amber-400 text-slate-950 text-xs font-extrabold uppercase mb-2">
+                                ⭐ Fitur Paket Premium • Kalkulator Harga Grosir
+                            </span>
+                            <h2 class="text-2xl sm:text-3xl font-extrabold">Hitung Jumlah & Diskon Harga Grosir Otomatis</h2>
+                            <p class="text-xs sm:text-sm text-slate-300 mt-1">Masukkan jumlah pcs yang dibutuhkan—sistem otomatis menghitung harga grosir per pcs, total hemat, dan mengirim rincian order ke WhatsApp.</p>
+                        </div>
+
+                        <div class="p-6 sm:p-8 grid lg:grid-cols-12 gap-8">
+                            <!-- Left Calculator Controls -->
+                            <div class="lg:col-span-7 space-y-5">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">1. Pilih Jenis & Ukuran Kemasan</label>
+                                    <select onchange="updatePackagingField('productIndex', parseInt(this.value))" class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-slate-50 text-sm font-bold text-slate-900 focus:outline-none focus:border-emerald-600">
+                                        ${packagingData.products.map((p, idx) => `
+                                            <option value="${idx}" ${state.packagingOrder.productIndex === idx ? 'selected' : ''}>
+                                                ${p.name} — Normal ${formatRupiah(p.price)}/pcs
+                                            </option>
+                                        `).join('')}
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <div class="flex items-center justify-between mb-1.5">
+                                        <label class="text-xs font-bold text-slate-700 uppercase">2. Masukkan Jumlah Order (Pcs)</label>
+                                        <span class="text-xs font-bold text-emerald-700">Min. 100 pcs diskon 10%</span>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <input type="number" min="10" step="10" value="${state.packagingOrder.quantity}" oninput="updatePackagingQty(this.value)" class="w-full px-4 py-3 rounded-xl border-2 border-emerald-500 bg-emerald-50/30 text-lg font-extrabold text-slate-900 focus:outline-none">
+                                        <span class="text-sm font-bold text-slate-500">Pcs</span>
+                                    </div>
+
+                                    <!-- Quick Quantity Preset Pills -->
+                                    <div class="flex flex-wrap gap-2 mt-2.5">
+                                        ${[50, 100, 250, 500, 1000].map(preset => `
+                                            <button type="button" onclick="setPackagingQty(${preset})" class="px-3 py-1.5 rounded-lg text-xs font-bold border transition cursor-pointer ${state.packagingOrder.quantity === preset ? 'bg-emerald-600 text-white border-emerald-600' : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200'}">
+                                                ${preset.toLocaleString('id-ID')} pcs ${preset >= 500 ? '(-25%)' : preset >= 300 ? '(-18%)' : preset >= 100 ? '(-10%)' : ''}
+                                            </button>
+                                        `).join('')}
+                                    </div>
+                                </div>
+
+                                <!-- Tiered Pricing Table Guide -->
+                                <div class="bg-slate-50 rounded-2xl p-3.5 border border-slate-200 text-xs">
+                                    <div class="font-bold text-slate-700 mb-2">Tabel Tingkatan Harga Grosir Otomatis:</div>
+                                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center">
+                                        <div class="p-2 rounded-xl bg-white border ${state.packagingOrder.quantity < 100 ? 'border-slate-900 ring-1 ring-slate-900' : 'border-slate-200'}">
+                                            <div class="font-bold text-slate-800">1 – 99 pcs</div>
+                                            <div class="text-slate-500">Harga Normal</div>
+                                        </div>
+                                        <div class="p-2 rounded-xl bg-white border ${state.packagingOrder.quantity >= 100 && state.packagingOrder.quantity < 300 ? 'border-amber-500 ring-1 ring-amber-500' : 'border-slate-200'}">
+                                            <div class="font-bold text-amber-700">100 – 299 pcs</div>
+                                            <div class="text-amber-600 font-semibold">Diskon 10%</div>
+                                        </div>
+                                        <div class="p-2 rounded-xl bg-white border ${state.packagingOrder.quantity >= 300 && state.packagingOrder.quantity < 500 ? 'border-teal-500 ring-1 ring-teal-500' : 'border-slate-200'}">
+                                            <div class="font-bold text-teal-700">300 – 499 pcs</div>
+                                            <div class="text-teal-600 font-semibold">Diskon 18%</div>
+                                        </div>
+                                        <div class="p-2 rounded-xl bg-white border ${state.packagingOrder.quantity >= 500 ? 'border-emerald-600 ring-1 ring-emerald-600' : 'border-slate-200'}">
+                                            <div class="font-bold text-emerald-700">500+ pcs</div>
+                                            <div class="text-emerald-600 font-semibold">Diskon 25%</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="grid sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">3. Nama Pemesan / Usaha</label>
+                                        <input type="text" value="${state.packagingOrder.customerName}" oninput="updatePackagingField('customerName', this.value)" placeholder="Contoh: Ibu Rina / Toko Kue Sari" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-emerald-600">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">4. Pengiriman / Catatan</label>
+                                        <input type="text" value="${state.packagingOrder.customNotes}" oninput="updatePackagingField('customNotes', this.value)" placeholder="Ambil di gudang / kirim kargo..." class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-emerald-600">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Right Live Calculation Summary -->
+                            <div class="lg:col-span-5 flex flex-col justify-between bg-slate-900 text-white rounded-2xl p-6">
+                                <div>
+                                    <div class="flex items-center justify-between mb-4">
+                                        <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Rincian Harga Grosir</span>
+                                        <span class="px-2.5 py-1 rounded-full text-[11px] font-bold ${calc.badgeColor}">
+                                            ${calc.tierName}
+                                        </span>
+                                    </div>
+
+                                    <div class="space-y-3 text-sm">
+                                        <div class="flex justify-between text-slate-300">
+                                            <span>Produk:</span>
+                                            <span class="font-bold text-white text-right max-w-[190px]">${selectedPkg.name}</span>
+                                        </div>
+                                        <div class="flex justify-between text-slate-300">
+                                            <span>Jumlah Order:</span>
+                                            <span class="font-bold text-white">${state.packagingOrder.quantity.toLocaleString('id-ID')} Pcs</span>
+                                        </div>
+                                        <div class="flex justify-between text-slate-300">
+                                            <span>Harga Normal Satuan:</span>
+                                            <span class="${calc.discountRate > 0 ? 'line-through text-slate-500' : 'text-white font-semibold'}">${formatRupiah(selectedPkg.price)}</span>
+                                        </div>
+                                        <div class="flex justify-between text-emerald-400 font-bold">
+                                            <span>Harga Grosir per Pcs:</span>
+                                            <span class="text-base">${formatRupiah(calc.finalUnitPrice)} / pcs</span>
+                                        </div>
+
+                                        ${calc.totalSaved > 0 ? `
+                                        <div class="p-3 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-between text-xs">
+                                            <span class="text-emerald-200"><i class="fa-solid fa-piggy-bank mr-1"></i> Total Hemat Grosir:</span>
+                                            <span class="font-extrabold text-emerald-300">${formatRupiah(calc.totalSaved)}</span>
+                                        </div>
+                                        ` : `
+                                        <div class="p-3 rounded-xl bg-amber-500/15 border border-amber-500/30 text-xs text-amber-200">
+                                            💡 Tambah jumlah hingga <strong>100 pcs</strong> untuk langsung mendapat diskon grosir 10%!
+                                        </div>
+                                        `}
+
+                                        <div class="pt-4 mt-2 border-t border-slate-700 flex items-baseline justify-between">
+                                            <span class="text-sm font-bold text-slate-300">Total Estimasi Bayar:</span>
+                                            <span class="text-2xl font-extrabold text-amber-400">${formatRupiah(calc.totalFinal)}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button onclick="submitPackagingWaOrder()" class="mt-6 w-full py-3.5 px-4 rounded-xl bg-[#25D366] hover:bg-[#1ebe5d] text-slate-950 font-extrabold text-sm shadow-lg flex items-center justify-center gap-2 transition cursor-pointer">
+                                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                                    <span>Order Grosir via WhatsApp</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                ` : ''}
+
+                <!-- FAQ Section -->
+                <section id="faq-kemasan" class="py-14 px-4 sm:px-6 max-w-4xl mx-auto">
+                    <div class="text-center mb-8">
+                        <span class="text-xs font-bold uppercase tracking-widest text-[#B45309]">Informasi Pembelian</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-[#0F172A] mt-1">Pertanyaan Seputar Grosir Kemasan (FAQ)</h2>
+                    </div>
+                    <div class="space-y-3">
+                        ${packagingData.faqs.map((faq, idx) => `
+                            <details class="group bg-white rounded-2xl border border-slate-200 p-5 shadow-sm" ${idx === 0 ? 'open' : ''}>
+                                <summary class="flex items-center justify-between font-bold text-sm sm:text-base text-[#0F172A] cursor-pointer list-none">
+                                    <span>${faq.q}</span>
+                                    <span class="w-7 h-7 rounded-full bg-slate-100 text-slate-700 flex items-center justify-center text-xs group-open:rotate-180 transition">
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                    </span>
+                                </summary>
+                                <p class="text-xs sm:text-sm text-slate-600 mt-3 pt-3 border-t border-slate-100 leading-relaxed">
+                                    ${faq.a}
+                                </p>
+                            </details>
+                        `).join('')}
+                    </div>
+                </section>
+
+                <!-- Info Pembayaran & Gudang -->
+                <section id="pembayaran-kemasan" class="py-14 px-4 sm:px-6 bg-[#0F172A] text-slate-200">
+                    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-8">
+                        <div class="bg-slate-800/70 rounded-3xl p-6 sm:p-8 border border-slate-700">
+                            <h3 class="text-xl sm:text-2xl font-extrabold text-amber-400 mb-4 flex items-center gap-2">
+                                <i class="fa-solid fa-building-columns"></i> Rekening Pembayaran Grosir
+                            </h3>
+                            <p class="text-xs sm:text-sm text-slate-300 mb-4">Pembayaran order kemasan ready stock maupun pesanan sablon custom dilayani melalui rekening resmi berikut:</p>
+                            <div class="space-y-3 text-sm">
+                                <div class="p-3.5 rounded-2xl bg-slate-900/80 border border-slate-700 flex items-center justify-between">
+                                    <div>
+                                        <span class="text-xs text-amber-400 font-bold block">BANK BCA</span>
+                                        <span class="font-mono font-bold text-base text-white">123-456-7890</span>
+                                        <span class="text-xs text-slate-400 block">a.n. Pemilik <span class="live-store-name">${state.storeName}</span></span>
+                                    </div>
+                                    <span class="px-2.5 py-1 rounded-lg bg-slate-800 text-xs text-slate-300">Transfer</span>
+                                </div>
+                                <div class="p-3.5 rounded-2xl bg-slate-900/80 border border-slate-700 flex items-center justify-between">
+                                    <div>
+                                        <span class="text-xs text-amber-400 font-bold block">BANK BRI</span>
+                                        <span class="font-mono font-bold text-base text-white">0052-01-009876-50-1</span>
+                                        <span class="text-xs text-slate-400 block">a.n. Pemilik <span class="live-store-name">${state.storeName}</span></span>
+                                    </div>
+                                    <span class="px-2.5 py-1 rounded-lg bg-slate-800 text-xs text-slate-300">Transfer</span>
+                                </div>
+                                <div class="p-3.5 rounded-2xl bg-emerald-950/60 border border-emerald-700/50 flex items-center justify-between">
+                                    <div>
+                                        <span class="text-xs text-emerald-400 font-bold block">QRIS & PEMBAYARAN DI GUDANG</span>
+                                        <span class="text-xs text-slate-300">Tersedia nota resmi / invoice untuk kebutuhan pembukuan usaha Anda</span>
+                                    </div>
+                                    <i class="fa-solid fa-file-invoice-dollar text-2xl text-emerald-400"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-800/70 rounded-3xl p-6 sm:p-8 border border-slate-700 flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-xl sm:text-2xl font-extrabold text-emerald-400 mb-4 flex items-center gap-2">
+                                    <i class="fa-solid fa-truck-fast"></i> Lokasi Gudang & Jadwal Pengiriman
+                                </h3>
+                                <div class="space-y-4 text-sm text-slate-300">
+                                    <div>
+                                        <div class="font-bold text-white">Alamat Toko & Gudang:</div>
+                                        <p class="text-xs sm:text-sm mt-0.5">Jl. Raya Perdagangan No. 45 (Bisa diisi alamat lengkap toko & gudang kemasan Asuk)</p>
+                                    </div>
+                                    <div>
+                                        <div class="font-bold text-white">Jam Operasional:</div>
+                                        <p class="text-xs sm:text-sm mt-0.5">Senin – Sabtu: 08.00 – 17.30 WITA (Minggu libur / sesuai janji)</p>
+                                    </div>
+                                    <div>
+                                        <div class="font-bold text-white">Pengiriman Kargo & Instan:</div>
+                                        <p class="text-xs sm:text-sm mt-0.5">Order sebelum jam 15.00 WITA dikirim di hari yang sama.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <button onclick="openSimpleWa('Halo ' + state.storeName + ', boleh minta lokasi Google Maps gudang kemasannya?')" class="mt-6 w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs sm:text-sm transition cursor-pointer">
+                                <i class="fa-solid fa-location-dot mr-1.5"></i> Minta Shareloc Gudang via WA
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <footer class="bg-slate-950 text-slate-400 py-6 px-4 text-center text-xs">
+                    © 2026 <span class="font-bold text-white live-store-name">${state.storeName}</span> — Pusat Grosir Kotak Kue & Kemasan UMKM.
+                </footer>
+            </div>
+            `;
+        }
+
+        // =====================================================================
+        // INTERACTIVE HANDLERS FOR FORMS, CALCULATOR & MODALS
+        // =====================================================================
+        function selectBakeryProduct(index) {
+            state.bakeryOrder.productIndex = index;
+            renderWebsite();
+            document.getElementById('order-kue')?.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function updateBakeryField(field, value) {
+            state.bakeryOrder[field] = value;
+            if (field === 'productIndex' || field === 'pickupDate' || field === 'pickupTime') {
+                renderWebsite();
+            }
+        }
+
+        function updateBakeryCakeText(val) {
+            state.bakeryOrder.cakeText = val;
+            const previewEl = document.getElementById('live-cake-preview-text');
+            if (previewEl) {
+                previewEl.textContent = val.trim() ? `"${val}"` : '(Tanpa tulisan)';
+            }
+        }
+
+        function submitBakeryWaOrder() {
+            const prod = bakeryData.products[state.bakeryOrder.productIndex];
+            const cust = state.bakeryOrder.customerName.trim() || 'Pelanggan';
+            const cakeWriting = state.bakeryOrder.cakeText.trim() || '-';
+            const notes = state.bakeryOrder.notes.trim() || '-';
+
+            const message = `Halo *${state.storeName}*, saya mau pesan roti/kue:\n\n` +
+                `• *Produk:* ${prod.name} (${prod.unit})\n` +
+                `• *Harga:* ${formatRupiah(prod.price)}\n` +
+                `• *Tanggal Ambil/Kirim:* ${state.bakeryOrder.pickupDate} jam ${state.bakeryOrder.pickupTime}\n` +
+                `• *Tulisan di Atas Kue:* "${cakeWriting}"\n` +
+                `• *Metode:* ${state.bakeryOrder.deliveryMethod}\n` +
+                `• *Nama Pemesan:* ${cust}\n` +
+                `• *Catatan:* ${notes}\n\n` +
+                `Mohon konfirmasi ketersediaan & total pembayarannya ya. Terima kasih!`;
+
+            openWaModal(message);
+        }
+
+        function selectPackagingProduct(index) {
+            state.packagingOrder.productIndex = index;
+            renderWebsite();
+            document.getElementById('kalkulator-grosir')?.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function updatePackagingField(field, value) {
+            state.packagingOrder[field] = value;
+            if (field === 'productIndex') {
+                renderWebsite();
+            }
+        }
+
+        function updatePackagingQty(val) {
+            const num = Math.max(1, parseInt(val) || 1);
+            state.packagingOrder.quantity = num;
+            renderWebsite();
+        }
+
+        function setPackagingQty(qty) {
+            state.packagingOrder.quantity = qty;
+            renderWebsite();
+        }
+
+        function submitPackagingWaOrder() {
+            const prod = packagingData.products[state.packagingOrder.productIndex];
+            const qty = state.packagingOrder.quantity;
+            const calc = calculateWholesale(prod.price, qty);
+            const cust = state.packagingOrder.customerName.trim() || 'Pelanggan Grosir';
+            const notes = state.packagingOrder.customNotes.trim() || '-';
+
+            const message = `Halo *${state.storeName}*, saya mau order grosir kemasan:\n\n` +
+                `• *Produk:* ${prod.name}\n` +
+                `• *Jumlah Order:* ${qty.toLocaleString('id-ID')} Pcs\n` +
+                `• *Kategori Harga:* ${calc.tierName}\n` +
+                `• *Harga Grosir Satuan:* ${formatRupiah(calc.finalUnitPrice)} / pcs\n` +
+                `• *Total Estimasi:* *${formatRupiah(calc.totalFinal)}*\n` +
+                `• *Nama/Usaha:* ${cust}\n` +
+                `• *Catatan/Kirim:* ${notes}\n\n` +
+                `Mohon cek stok dan info ongkir/pengambilannya ya. Terima kasih!`;
+
+            openWaModal(message);
+        }
+
+        // WhatsApp Modal Controls
+        function openSimpleWa(msg) {
+            openWaModal(msg);
+        }
+
+        function openWaModal(message) {
+            const modal = document.getElementById('wa-modal');
+            const msgBox = document.getElementById('wa-preview-message');
+            const directLink = document.getElementById('wa-direct-link');
+
+            msgBox.textContent = message;
+            directLink.href = `https://wa.me/6281234567890?text=${encodeURIComponent(message)}`;
+            modal.classList.remove('hidden');
+        }
+
+        function closeWaModal() {
+            document.getElementById('wa-modal').classList.add('hidden');
+        }
+
+        function copyWaMessage() {
+            const text = document.getElementById('wa-preview-message').textContent;
+            const temp = document.createElement('textarea');
+            temp.value = text;
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand('copy');
+            document.body.removeChild(temp);
+
+            const btn = document.getElementById('copy-wa-btn');
+            const original = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-check text-emerald-600 mr-1"></i> Tersalin!';
+            setTimeout(() => { btn.innerHTML = original; }, 2000);
+        }
+
+        // Proposal Modal Controls
+        function openProposalModal() {
+            document.getElementById('proposal-modal').classList.remove('hidden');
+        }
+
+        function closeProposalModal() {
+            document.getElementById('proposal-modal').classList.add('hidden');
+        }
+
+        function copyProposalText() {
+            const textarea = document.getElementById('proposal-copy-text');
+            textarea.select();
+            document.execCommand('copy');
+
+            const btn = document.getElementById('copy-proposal-btn');
+            const original = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-check mr-1"></i> Berhasil Disalin!';
+            setTimeout(() => { btn.innerHTML = original; }, 2000);
+        }
+
+        // Lightbox Controls
+        function openLightbox(img, title, desc) {
+            document.getElementById('lightbox-img').src = img;
+            document.getElementById('lightbox-title').textContent = title;
+            document.getElementById('lightbox-desc').textContent = desc;
+            document.getElementById('lightbox-modal').classList.remove('hidden');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox-modal').classList.add('hidden');
+        }
+
+        // Initialize Page
+        window.addEventListener('DOMContentLoaded', () => {
+            updateControlBar();
+            renderWebsite();
+        });
+    </script>
+</body>
+</html>
